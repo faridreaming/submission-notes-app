@@ -106,4 +106,10 @@ export const notesData = [
   },
 ]
 
-console.log(notesData)
+class Notes {
+  static getAll() {
+    return notesData
+  }
+}
+
+export default Notes
