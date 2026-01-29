@@ -1,1 +1,2 @@
-import './header-bar.js'
+import './logo-type.js'
+import './note-form.js'
