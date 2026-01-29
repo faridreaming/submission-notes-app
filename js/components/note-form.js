@@ -48,12 +48,17 @@ class NoteForm extends HTMLElement {
           button {
             color: white;
             background-color: oklch(53.2% 0.157 131.589);
-            border: none;
+            border: 1px solid oklch(45.3% 0.124 130.933);
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             border-radius: 0.5rem;
             width: fit-content;
             align-self: flex-end;
+          }
+          button:focus-visible {
+            appearance: none;
+            outline: none;
+            box-shadow: 0 0 0 4px oklch(40.5% 0.101 131.063);
           }
         }
       </style>
