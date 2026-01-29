@@ -1,4 +1,4 @@
-class HeaderBar extends HTMLElement {
+class LogoType extends HTMLElement {
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
@@ -16,7 +16,6 @@ class HeaderBar extends HTMLElement {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          margin-block-start: 1rem;
           div {
             background-color: oklch(53.2% 0.157 131.589);
             width: fit-content;
@@ -24,10 +23,10 @@ class HeaderBar extends HTMLElement {
             padding: 1rem;
             display: flex;
             border-radius: 50%;
-          }
-          img {
-            height: 3rem;
-            width: 3rem;
+            img {
+              height: 3rem;
+              width: 3rem;
+            }
           }
           h1 {
             margin: 0;
@@ -44,4 +43,4 @@ class HeaderBar extends HTMLElement {
   }
 }
 
-customElements.define('header-bar', HeaderBar)
+customElements.define('logo-type', LogoType)
