@@ -27,16 +27,23 @@ class NoteForm extends HTMLElement {
           }
           input, textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 0.75rem;
             font-size: 1rem;
             color: #fff;
             background-color: oklch(27.4% 0.006 286.033);
             border: 1px solid oklch(37% 0.013 285.805);
             border-radius: 0.5rem;
+            transition: all 150ms linear;
           }
           textarea {
             resize: vertical;
             min-height: 8rem;
+          }
+          input:focus-visible, textarea:focus-visible {
+            appearance: none;
+            outline: none;
+            border-color: oklch(53.2% 0.157 131.589);
+            box-shadow: 0 0 0 4px oklch(40.5% 0.101 131.063);
           }
           button {
             color: white;
@@ -52,7 +59,7 @@ class NoteForm extends HTMLElement {
       </style>
       <form>
         <div>
-          <input type="text" id="note-title" name="note-title" required />
+          <input type="text" id="note-title" name="note-title" autocomplete="off" required />
         </div>
         <div>
           <textarea id="note-content" name="note-content" required></textarea>
