@@ -11,11 +11,13 @@ class LogoType extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        div {
+        .wrapper {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          text-align: center;
+          margin-block-start: 2rem;
           div {
             background-color: oklch(53.2% 0.157 131.589);
             width: fit-content;
@@ -33,7 +35,7 @@ class LogoType extends HTMLElement {
           }
         }
       </style>
-      <div>
+      <div class="wrapper">
         <div>
           <img src="../../assets/logo.svg" alt="Logo" />
         </div>

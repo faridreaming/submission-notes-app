@@ -13,9 +13,6 @@ body {
 
 .wrapper {
   max-width: 48rem;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: oklch(21% 0.006 285.885);
-  border: 1px solid oklch(27.4% 0.006 286.033);
-  border-radius: 1rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }

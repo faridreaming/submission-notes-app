@@ -21,6 +21,10 @@ class NoteForm extends HTMLElement {
           display: flex;
           flex-direction: column;
           gap: 1rem;
+          background-color: oklch(21% 0.006 285.885);
+          border: 1px solid oklch(27.4% 0.006 286.033);
+          border-radius: 1rem;
+          padding: 1rem;
           margin-block-start: 2rem;
           div {
             display: flex;
