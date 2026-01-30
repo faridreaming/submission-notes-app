@@ -1,4 +1,4 @@
-class ClubItem extends HTMLElement {
+class NoteItem extends HTMLElement {
   #note = {
     id: null,
     title: '',
@@ -59,4 +59,4 @@ class ClubItem extends HTMLElement {
   }
 }
 
-customElements.define('club-item', ClubItem)
+customElements.define('note-item', NoteItem)
