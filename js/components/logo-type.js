@@ -32,6 +32,9 @@ class LogoType extends HTMLElement {
           }
           h1 {
             margin: 0;
+            span {
+              color: oklch(76.8% 0.233 130.85);
+            }
           }
         }
       </style>
@@ -39,7 +42,7 @@ class LogoType extends HTMLElement {
         <div>
           <img src="../../assets/logo.svg" alt="Logo" />
         </div>
-        <h1>Note Apps Farid</h1>
+        <h1>NoteApps <span>Farid</span></h1>
       </div>
     `
   }
