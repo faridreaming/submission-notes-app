@@ -26,6 +26,10 @@ class NoteForm extends HTMLElement {
           border-radius: 1rem;
           padding: 1rem;
           margin-block-start: 2rem;
+          h2 {
+            font-weight: normal;
+            font-size: 1rem;
+          }
           div {
             display: flex;
           }
@@ -37,7 +41,7 @@ class NoteForm extends HTMLElement {
             background-color: oklch(27.4% 0.006 286.033);
             border: 1px solid oklch(37% 0.013 285.805);
             border-radius: 0.5rem;
-            transition: all 150ms linear;
+            transition: box-shadow 150ms linear;
           }
           textarea {
             resize: vertical;
@@ -67,6 +71,7 @@ class NoteForm extends HTMLElement {
         }
       </style>
       <form>
+        <h2>Add a New Note</h2>
         <div>
           <input type="text" id="note-title" name="note-title" autocomplete="off" required />
         </div>
