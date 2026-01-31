@@ -30,11 +30,17 @@ class LogoType extends HTMLElement {
               width: 3rem;
             }
           }
-          h1 {
+          h1, p {
             margin: 0;
+          }
+          h1 {
+            margin-block-start: 1rem;
             span {
               color: oklch(76.8% 0.233 130.85);
             }
+          }
+          p {
+            margin-block-start: 0.5rem;
           }
         }
       </style>
@@ -43,6 +49,7 @@ class LogoType extends HTMLElement {
           <img src="../../assets/logo.svg" alt="Logo" />
         </div>
         <h1>NoteApps <span>Farid</span></h1>
+        <p>Personal Notes App</p>
       </div>
     `
   }
