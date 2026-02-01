@@ -108,7 +108,13 @@ export const notesData = [
 
 class Notes {
   static getAll() {
-    return notesData
+    return [...notesData].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    )
+  }
+
+  static addNote({ id, title, body, createdAt, archived }) {
+    notesData.push({ id, title, body, createdAt, archived })
   }
 }
 

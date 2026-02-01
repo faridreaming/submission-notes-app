@@ -26,6 +26,18 @@ class App {
   bindEvents() {
     this.noteFormElement.addEventListener('submit', (event) => {
       event.preventDefault()
+
+      const newNote = {
+        id: `notes-${Math.random().toString(36).substr(2, 9)}`,
+        title: this.noteTitleInput.value,
+        body: this.noteContentInput.value,
+        createdAt: new Date().toISOString(),
+        archived: false,
+      }
+      console.log(newNote)
+      Notes.addNote(newNote)
+      this.displayNotes()
+      this.noteFormElement.reset()
     })
 
     const customValidationTitleHandler = (event) => {
