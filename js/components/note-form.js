@@ -43,7 +43,7 @@ class NoteForm extends HTMLElement {
           }
           input, textarea {
             width: 100%;
-            padding: 1.5rem 0.75rem 0.5rem;
+            padding: 1.625rem 0.75rem 0.625rem;
             font-size: 1rem;
             color: #fff;
             background-color: oklch(27.4% 0.006 286.033);
@@ -55,8 +55,7 @@ class NoteForm extends HTMLElement {
             position: absolute;
             top: 0;
             left: 0;
-            height: 100%;
-            padding: 1rem 0.75rem;
+            padding: 1.1rem 0.75rem;
             pointer-events: none;
             border: 1px solid transparent;
             transform-origin: 0 0;
@@ -71,7 +70,7 @@ class NoteForm extends HTMLElement {
           input:not(:placeholder-shown) ~ label,
           textarea:focus ~ label,
           textarea:not(:placeholder-shown) ~ label {
-            transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+            transform: scale(.85) translateY(-0.65rem) translateX(0.15rem);
           }
           input:focus-visible, textarea:focus-visible {
             appearance: none;
