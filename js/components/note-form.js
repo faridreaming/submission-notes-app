@@ -60,7 +60,7 @@ class NoteForm extends HTMLElement {
             border: 1px solid transparent;
             transform-origin: 0 0;
             transition: opacity .1s ease-in-out, transform .1s ease-in-out;
-            color: oklch(70% 0 0);
+            color: oklch(55.2% 0.016 285.938);
           }
           textarea {
             resize: vertical;
@@ -102,6 +102,12 @@ class NoteForm extends HTMLElement {
           }
           button:active {
             background-color: oklch(45.3% 0.124 130.933);
+          }
+        }
+        @media (max-width: 480px) {
+          button {
+            width: 100%;
+            justify-content: center;
           }
         }
       </style>
