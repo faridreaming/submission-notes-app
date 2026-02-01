@@ -28,7 +28,14 @@ class NoteForm extends HTMLElement {
           margin-block-start: 2rem;
           h2 {
             font-weight: normal;
-            font-size: 1rem;
+            font-size: 1.17rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            svg {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
           }
           div {
             display: flex;
@@ -60,8 +67,10 @@ class NoteForm extends HTMLElement {
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             border-radius: 0.5rem;
-            width: fit-content;
             align-self: flex-end;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
           }
           button:focus-visible {
             appearance: none;
@@ -71,7 +80,16 @@ class NoteForm extends HTMLElement {
         }
       </style>
       <form>
-        <h2>Add a New Note</h2>
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-form-icon lucide-form">
+            <path d="M4 14h6" />
+            <path d="M4 2h10" />
+            <rect x="4" y="18" width="16" height="4" rx="1" />
+            <rect x="4" y="6" width="16" height="4" rx="1" />
+          </svg>
+          Add a New Note
+        </h2>
         <div>
           <input type="text" id="note-title" name="note-title" autocomplete="off" required />
         </div>
@@ -79,7 +97,11 @@ class NoteForm extends HTMLElement {
           <textarea id="note-content" name="note-content" required></textarea>
         </div>
         <button>
-          <img src="../../assets/plus-icon.svg" alt="Add Note Icon" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
           Add Note
         </button>
       </form>
