@@ -1,11 +1,23 @@
 class LogoType extends HTMLElement {
+  static observedAttributes = ['name', 'description']
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
+
+    this.name = this.getAttribute('name') || 'Your Name'
+    this.description = this.getAttribute('description') || 'Your Description'
   }
 
   connectedCallback() {
     this.render()
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this[name] = newValue
+      this.render()
+    }
   }
 
   render() {
@@ -51,8 +63,8 @@ class LogoType extends HTMLElement {
         <div>
           <img src="../../assets/logo.svg" alt="Logo" />
         </div>
-        <h1>NoteApps <span>Farid</span></h1>
-        <p>Personal Notes App</p>
+        <h1>NoteApps <span>${this.name}</span></h1>
+        <p>${this.description}</p>
       </div>
     `
   }
