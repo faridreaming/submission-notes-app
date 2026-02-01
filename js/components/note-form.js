@@ -71,11 +71,19 @@ class NoteForm extends HTMLElement {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: all 150ms linear;
           }
           button:focus-visible {
             appearance: none;
             outline: none;
             box-shadow: 0 0 0 4px oklch(40.5% 0.101 131.063);
+          }
+          button:hover {
+            cursor: pointer;
+            background-color: oklch(64.8% 0.2 131.684);
+          }
+          button:active {
+            background-color: oklch(45.3% 0.124 130.933);
           }
         }
       </style>
