@@ -39,6 +39,7 @@ class NoteForm extends HTMLElement {
           }
           div {
             display: flex;
+            flex-direction: column;
             position: relative;
           }
           input, textarea {
@@ -65,6 +66,11 @@ class NoteForm extends HTMLElement {
           textarea {
             resize: vertical;
             min-height: 8rem;
+          }
+          p {
+            display: none;
+            margin-block-start: 0.5rem;
+            color: oklch(57.7% 0.245 27.325);
           }
           input:focus ~ label,
           input:not(:placeholder-shown) ~ label,
@@ -123,12 +129,32 @@ class NoteForm extends HTMLElement {
           Add a New Note
         </h2>
         <div>
-          <input type="text" id="note-title" name="note-title" autocomplete="off" placeholder=" " required />
+          <input 
+            type="text" 
+            id="note-title" 
+            name="note-title" 
+            autocomplete="off" 
+            placeholder=" " 
+            required 
+            maxlength="50"
+            aria-describedby="noteTitleValidationMessage" 
+          />
           <label for="note-title">Title</label>
+          <p id="noteTitleValidationMessage" aria-live="polite"></p>
         </div>
         <div>
-          <textarea id="note-content" name="note-content" placeholder=" " required></textarea>
+          <textarea 
+            id="note-content" 
+            name="note-content" 
+            placeholder=" " 
+            required 
+            minlength="5"
+            maxlength="500"
+            rows="5"
+            aria-describedby="noteContentValidationMessage"
+          ></textarea>
           <label for="note-content">Note Content</label>
+          <p id="noteContentValidationMessage" aria-live="polite"></p>
         </div>
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"

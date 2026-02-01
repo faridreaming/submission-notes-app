@@ -8,6 +8,7 @@ class App {
     if (App.instance) return App.instance
 
     this.initElements()
+    this.bindEvents()
     this.displayNotes()
 
     App.instance = this
@@ -15,6 +16,72 @@ class App {
 
   initElements() {
     this.noteListElement = document.querySelector('note-list')
+    this.noteFormElement = document
+      .querySelector('note-form')
+      .shadowRoot.querySelector('form')
+    this.noteTitleInput = this.noteFormElement.elements[0]
+    this.noteContentInput = this.noteFormElement.elements[1]
+  }
+
+  bindEvents() {
+    this.noteFormElement.addEventListener('submit', (event) => {
+      event.preventDefault()
+    })
+
+    const customValidationTitleHandler = (event) => {
+      const target = event.target
+      target.setCustomValidity('')
+
+      if (target.validity.valueMissing) {
+        target.setCustomValidity('Judul wajib diisi.')
+      }
+    }
+
+    const customValidationContentHandler = (event) => {
+      const target = event.target
+      target.setCustomValidity('')
+
+      if (target.validity.valueMissing) {
+        target.setCustomValidity('Isi catatan tidak boleh kosong.')
+      } else if (target.validity.tooShort) {
+        target.setCustomValidity(
+          `Isi catatan minimal ${target.minLength} karakter.`,
+        )
+      }
+    }
+
+    const showErrorMessage = (event) => {
+      const isValid = event.target.validity.valid
+      const errorMessage = event.target.validationMessage
+
+      const connectedValidationEl =
+        event.target.nextElementSibling.nextElementSibling
+
+      if (connectedValidationEl && errorMessage && !isValid) {
+        connectedValidationEl.innerText = errorMessage
+        connectedValidationEl.style.display = 'block'
+      } else {
+        connectedValidationEl.innerText = ''
+        connectedValidationEl.style.display = 'none'
+      }
+    }
+
+    this.noteTitleInput.addEventListener('change', customValidationTitleHandler)
+    this.noteTitleInput.addEventListener(
+      'invalid',
+      customValidationTitleHandler,
+    )
+    this.noteContentInput.addEventListener(
+      'change',
+      customValidationContentHandler,
+    )
+    this.noteContentInput.addEventListener(
+      'invalid',
+      customValidationContentHandler,
+    )
+
+    this.noteTitleInput.addEventListener('blur', showErrorMessage)
+    this.noteContentInput.addEventListener('blur', showErrorMessage)
   }
 
   displayNotes() {
