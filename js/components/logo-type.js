@@ -36,7 +36,10 @@ class LogoType extends HTMLElement {
           h1 {
             margin-block-start: 1rem;
             span {
-              color: oklch(76.8% 0.233 130.85);
+              background: linear-gradient(to right, oklch(76.8% 0.233 130.85), oklch(84.1% 0.238 128.85));
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent; 
             }
           }
           p {
