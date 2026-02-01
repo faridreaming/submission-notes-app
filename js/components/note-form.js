@@ -39,20 +39,39 @@ class NoteForm extends HTMLElement {
           }
           div {
             display: flex;
+            position: relative;
           }
           input, textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 1.5rem 0.75rem 0.5rem;
             font-size: 1rem;
             color: #fff;
             background-color: oklch(27.4% 0.006 286.033);
             border: 1px solid oklch(37% 0.013 285.805);
             border-radius: 0.5rem;
-            transition: box-shadow 150ms linear;
+            transition: box-shadow 150ms linear, border-color 150ms linear;
+          }
+          label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 1rem 0.75rem;
+            pointer-events: none;
+            border: 1px solid transparent;
+            transform-origin: 0 0;
+            transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+            color: oklch(70% 0 0);
           }
           textarea {
             resize: vertical;
             min-height: 8rem;
+          }
+          input:focus ~ label,
+          input:not(:placeholder-shown) ~ label,
+          textarea:focus ~ label,
+          textarea:not(:placeholder-shown) ~ label {
+            transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
           }
           input:focus-visible, textarea:focus-visible {
             appearance: none;
@@ -99,10 +118,12 @@ class NoteForm extends HTMLElement {
           Add a New Note
         </h2>
         <div>
-          <input type="text" id="note-title" name="note-title" autocomplete="off" required />
+          <input type="text" id="note-title" name="note-title" autocomplete="off" placeholder=" " required />
+          <label for="note-title">Title</label>
         </div>
         <div>
-          <textarea id="note-content" name="note-content" required></textarea>
+          <textarea id="note-content" name="note-content" placeholder=" " required></textarea>
+          <label for="note-content">Note Content</label>
         </div>
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
