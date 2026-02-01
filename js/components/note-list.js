@@ -19,6 +19,9 @@ class NoteList extends HTMLElement {
         }
         .note-list {
           margin-block-start: 2rem;
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))
         }
       </style>
       <div class="note-list">
