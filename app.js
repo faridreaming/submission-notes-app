@@ -26,20 +26,22 @@ class App {
   }
 
   bindEvents() {
-    this.noteFormElement.addEventListener('submit', (event) => {
+    this.noteFormElement.addEventListener('submit', async (event) => {
       event.preventDefault()
 
       const newNote = {
-        id: `notes-${Math.random().toString(36).substr(2, 9)}`,
         title: this.noteTitleInput.value,
         body: this.noteContentInput.value,
-        createdAt: new Date().toISOString(),
-        archived: false,
       }
-      console.log(newNote)
-      Notes.addNote(newNote)
-      this.displayNotes()
-      this.noteFormElement.reset()
+
+      try {
+        const result = await NotesApi.addNote(newNote)
+        alert(result.message)
+        this.displayNotes()
+        this.noteFormElement.reset()
+      } catch (err) {
+        alert(err.message)
+      }
     })
 
     const customValidationTitleHandler = (event) => {
@@ -101,6 +103,15 @@ class App {
   async displayNotes() {
     try {
       const notes = await NotesApi.getAll()
+
+      if (notes.length === 0) {
+        this.noteListElement.innerHTML = ''
+        this.noteListElement.appendChild(
+          this.createAlertMessage('There are no notes to display', 'info'),
+        )
+        return
+      }
+
       const noteItemElements = notes.map((note) => {
         const noteItemElement = document.createElement('note-item')
         noteItemElement.note = note
@@ -110,12 +121,18 @@ class App {
       this.noteListElement.innerHTML = ''
       this.noteListElement.append(...noteItemElements)
     } catch (err) {
-      const alertErrorElement = document.createElement('alert-message')
-      alertErrorElement.setAttribute('message', err.message)
-
       this.noteListElement.innerHTML = ''
-      this.noteListElement.appendChild(alertErrorElement)
+      this.noteListElement.appendChild(
+        this.createAlertMessage(err.message, 'error'),
+      )
     }
+  }
+
+  createAlertMessage(message, type) {
+    const alertMessageElement = document.createElement('alert-message')
+    alertMessageElement.setAttribute('message', message)
+    alertMessageElement.setAttribute('type', type)
+    return alertMessageElement
   }
 }
 
