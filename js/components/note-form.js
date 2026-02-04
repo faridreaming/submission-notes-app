@@ -133,7 +133,7 @@ class NoteForm extends HTMLElement {
             type="text" 
             id="note-title" 
             name="note-title" 
-            autocomplete="off" 
+            autocomplete="on" 
             placeholder=" " 
             required 
             maxlength="50"
