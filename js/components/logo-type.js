@@ -61,7 +61,7 @@ class LogoType extends HTMLElement {
       </style>
       <div class="wrapper">
         <div>
-          <img src="../../assets/logo.svg" alt="Logo" />
+          <img src="logo.svg" alt="Logo" />
         </div>
         <h1>NoteApps <span>${this.name}</span></h1>
         <p>${this.description}</p>

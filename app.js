@@ -1,3 +1,4 @@
+import './style.css'
 import './js/components/index.js'
 import Notes from './js/notes.js'
 
