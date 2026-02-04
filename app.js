@@ -1,6 +1,7 @@
 import './style.css'
 import './js/components/index.js'
 import Notes from './js/notes.js'
+import NotesApi from './js/notes-api.js'
 
 class App {
   static instance = null
@@ -97,16 +98,24 @@ class App {
     this.noteContentInput.addEventListener('blur', showErrorMessage)
   }
 
-  displayNotes() {
-    const notes = Notes.getAll()
-    const noteItemElements = notes.map((note) => {
-      const noteItemElement = document.createElement('note-item')
-      noteItemElement.note = note
-      return noteItemElement
-    })
+  async displayNotes() {
+    try {
+      const notes = await NotesApi.getAll()
+      const noteItemElements = notes.map((note) => {
+        const noteItemElement = document.createElement('note-item')
+        noteItemElement.note = note
+        return noteItemElement
+      })
 
-    this.noteListElement.innerHTML = ''
-    this.noteListElement.append(...noteItemElements)
+      this.noteListElement.innerHTML = ''
+      this.noteListElement.append(...noteItemElements)
+    } catch (err) {
+      const alertErrorElement = document.createElement('alert-error')
+      alertErrorElement.setAttribute('message', err.message)
+
+      this.noteListElement.innerHTML = ''
+      this.noteListElement.appendChild(alertErrorElement)
+    }
   }
 }
 
