@@ -110,7 +110,7 @@ class App {
       this.noteListElement.innerHTML = ''
       this.noteListElement.append(...noteItemElements)
     } catch (err) {
-      const alertErrorElement = document.createElement('alert-error')
+      const alertErrorElement = document.createElement('alert-message')
       alertErrorElement.setAttribute('message', err.message)
 
       this.noteListElement.innerHTML = ''
