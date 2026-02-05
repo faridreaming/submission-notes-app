@@ -29,6 +29,8 @@ class NoteItem extends HTMLElement {
   #setupDropdown() {
     const dropdownBtn = this.shadowRoot.querySelector('.dropdown-btn')
     const dropdownContent = this.shadowRoot.querySelector('.dropdown-content')
+    const deleteBtn = this.shadowRoot.querySelector('#deleteBtn')
+    const toggleArchiveBtn = this.shadowRoot.querySelector('#toggleArchiveBtn')
 
     dropdownBtn.addEventListener('click', (e) => {
       e.stopPropagation()
@@ -48,6 +50,31 @@ class NoteItem extends HTMLElement {
 
     dropdownContent.addEventListener('click', (e) => {
       e.stopPropagation()
+    })
+
+    deleteBtn.addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('note-delete', {
+          bubbles: true,
+          composed: true,
+          detail: { id: this.#note.id },
+        }),
+      )
+      this.closeDropdown()
+    })
+
+    toggleArchiveBtn.addEventListener('click', () => {
+      this.dispatchEvent(
+        new CustomEvent('note-archive-toggle', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            id: this.#note.id,
+            archived: this.#note.archived,
+          },
+        }),
+      )
+      this.closeDropdown()
     })
   }
 

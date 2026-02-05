@@ -45,6 +45,33 @@ class App {
         this.noteFormComponent.isSubmitting = false
       }
     })
+
+    document.addEventListener('note-delete', async (event) => {
+      const { id } = event.detail
+      try {
+        const result = await NotesApi.deleteNote(id)
+        this.showToast(result.message)
+        this.displayNotes()
+      } catch (err) {
+        this.showToast(err.message)
+      }
+    })
+
+    document.addEventListener('note-archive-toggle', async (event) => {
+      const { id, archived } = event.detail
+      try {
+        let result
+        if (archived) {
+          result = await NotesApi.unarchiveNote(id)
+        } else {
+          result = await NotesApi.archiveNote(id)
+        }
+        this.showToast(result.message)
+        this.displayNotes()
+      } catch (err) {
+        this.showToast(err.message)
+      }
+    })
   }
 
   async displayNotes() {
@@ -97,7 +124,6 @@ class App {
     requestAnimationFrame(() => {
       toastContainer = document.querySelector('toast-message div')
       toastContainer.style.bottom = '1rem'
-      console.log(toastContainer)
     })
 
     setTimeout(() => {
