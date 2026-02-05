@@ -1,10 +1,17 @@
 class NoteForm extends HTMLElement {
+  #isSubmitting = false
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
   }
 
   connectedCallback() {
+    this.render()
+  }
+
+  set isSubmitting(value) {
+    this.#isSubmitting = value
     this.render()
   }
 
@@ -109,6 +116,22 @@ class NoteForm extends HTMLElement {
           button:active {
             background-color: oklch(45.3% 0.124 130.933);
           }
+          button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+          }
+          .loader {
+            width: 1.25rem;
+            height: 1.25rem; 
+            border: 0.225rem solid rgba(255, 255, 255, 0.25);
+            border-top: 0.225rem solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          }
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
         @media (max-width: 480px) {
           button {
@@ -156,16 +179,27 @@ class NoteForm extends HTMLElement {
           <label for="note-content">Note Content</label>
           <p id="noteContentValidationMessage" aria-live="polite"></p>
         </div>
-        <button>
+        <button ${this.#isSubmitting ? 'disabled' : ''}>
+          ${
+            this.#isSubmitting
+              ? '<div class="loader"></div>'
+              : `
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
             <path d="M5 12h14" />
             <path d="M12 5v14" />
           </svg>
+          `
+          }
           Add Note
         </button>
       </form>
     `
+    const form = this.shadowRoot.querySelector('form')
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      this.dispatchEvent(new CustomEvent('note-submit', { bubbles: true }))
+    })
   }
 }
 

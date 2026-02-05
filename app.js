@@ -18,31 +18,42 @@ class App {
 
   initElements() {
     this.noteListElement = document.querySelector('note-list')
-    this.noteFormElement = document
-      .querySelector('note-form')
-      .shadowRoot.querySelector('form')
-    this.noteTitleInput = this.noteFormElement.elements[0]
-    this.noteContentInput = this.noteFormElement.elements[1]
+    this.noteFormComponent = document.querySelector('note-form')
   }
 
   bindEvents() {
-    this.noteFormElement.addEventListener('submit', async (event) => {
-      event.preventDefault()
+    this.noteFormComponent.addEventListener('note-submit', async () => {
+      const formElement =
+        this.noteFormComponent.shadowRoot.querySelector('form')
+      const titleInput = formElement.elements[0]
+      const contentInput = formElement.elements[1]
 
       const newNote = {
-        title: this.noteTitleInput.value,
-        body: this.noteContentInput.value,
+        title: titleInput.value,
+        body: contentInput.value,
       }
+
+      this.noteFormComponent.isSubmitting = true
 
       try {
         const result = await NotesApi.addNote(newNote)
-        alert(result.message)
+        this.showToast(result.message)
         this.displayNotes()
-        this.noteFormElement.reset()
+        formElement.reset()
       } catch (err) {
-        alert(err.message)
+        this.showToast(err.message)
+      } finally {
+        this.noteFormComponent.isSubmitting = false
       }
     })
+
+    this.setupFormValidation()
+  }
+
+  setupFormValidation() {
+    const formElement = this.noteFormComponent.shadowRoot.querySelector('form')
+    const titleInput = formElement.elements[0]
+    const contentInput = formElement.elements[1]
 
     const customValidationTitleHandler = (event) => {
       const target = event.target
@@ -82,22 +93,13 @@ class App {
       }
     }
 
-    this.noteTitleInput.addEventListener('change', customValidationTitleHandler)
-    this.noteTitleInput.addEventListener(
-      'invalid',
-      customValidationTitleHandler,
-    )
-    this.noteContentInput.addEventListener(
-      'change',
-      customValidationContentHandler,
-    )
-    this.noteContentInput.addEventListener(
-      'invalid',
-      customValidationContentHandler,
-    )
+    titleInput.addEventListener('change', customValidationTitleHandler)
+    titleInput.addEventListener('invalid', customValidationTitleHandler)
+    contentInput.addEventListener('change', customValidationContentHandler)
+    contentInput.addEventListener('invalid', customValidationContentHandler)
 
-    this.noteTitleInput.addEventListener('blur', showErrorMessage)
-    this.noteContentInput.addEventListener('blur', showErrorMessage)
+    titleInput.addEventListener('blur', showErrorMessage)
+    contentInput.addEventListener('blur', showErrorMessage)
   }
 
   async displayNotes() {
@@ -133,6 +135,29 @@ class App {
     alertMessageElement.setAttribute('message', message)
     alertMessageElement.setAttribute('type', type)
     return alertMessageElement
+  }
+
+  showToast(message, duration = 3000) {
+    const toastElement = document.createElement('toast-message')
+    toastElement.setAttribute('message', message)
+    let toastContainer = null
+
+    document.body.appendChild(toastElement)
+
+    requestAnimationFrame(() => {
+      toastContainer = document.querySelector('toast-message div')
+      toastContainer.style.bottom = '1rem'
+      console.log(toastContainer)
+    })
+
+    setTimeout(() => {
+      toastContainer.style.bottom = '-100%'
+      setTimeout(() => {
+        if (document.body.contains(toastElement)) {
+          toastElement.remove()
+        }
+      }, 500)
+    }, duration)
   }
 }
 
