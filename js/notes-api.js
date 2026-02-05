@@ -12,6 +12,17 @@ class NotesApi {
     return responseJson.data || []
   }
 
+  static async getArchived() {
+    const response = await fetch(`${this.#baseUrl}/notes/archived`)
+    const responseJson = await response.json()
+
+    if (!response.ok) {
+      throw new Error(responseJson.message || 'Gagal mengambil data arsip')
+    }
+
+    return responseJson.data || []
+  }
+
   static async addNote({ title, body }) {
     const options = {
       method: 'POST',
