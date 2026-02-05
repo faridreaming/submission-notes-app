@@ -53,6 +53,8 @@ class NoteItem extends HTMLElement {
             font-size: 1rem;
             color: oklch(70% 0.02 285.885);
             white-space: pre-line;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
             margin-block-end: 1rem;
           }
           div {
