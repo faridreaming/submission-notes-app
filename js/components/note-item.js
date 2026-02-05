@@ -23,6 +23,39 @@ class NoteItem extends HTMLElement {
 
   connectedCallback() {
     this.render()
+    this.#setupDropdown()
+  }
+
+  #setupDropdown() {
+    const dropdownBtn = this.shadowRoot.querySelector('.dropdown-btn')
+    const dropdownContent = this.shadowRoot.querySelector('.dropdown-content')
+
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+
+      document.querySelectorAll('note-item').forEach((noteItem) => {
+        if (noteItem !== this) {
+          noteItem.closeDropdown()
+        }
+      })
+
+      dropdownContent.classList.toggle('show')
+    })
+
+    document.addEventListener('click', () => {
+      dropdownContent.classList.remove('show')
+    })
+
+    dropdownContent.addEventListener('click', (e) => {
+      e.stopPropagation()
+    })
+  }
+
+  closeDropdown() {
+    const dropdownContent = this.shadowRoot.querySelector('.dropdown-content')
+    if (dropdownContent) {
+      dropdownContent.classList.remove('show')
+    }
   }
 
   render() {
@@ -48,6 +81,67 @@ class NoteItem extends HTMLElement {
             padding-block-end: 1rem;
             font-weight: normal;
             border-bottom: 1px solid oklch(27.4% 0.006 286.033);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .dropdown {
+              position: relative;
+            }
+            .dropdown-btn {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0.5rem;
+              color: #fff;
+              border-radius: 9999px;
+              display: flex;
+            }
+            .dropdown-btn:hover {
+              background-color: oklch(27.4% 0.006 286.033);
+            }
+            .dropdown-content {
+              position: absolute;
+              top: 2.5rem;
+              right: 0;
+              z-index: 1;
+              display: flex;
+              flex-direction: column;
+              background-color: oklch(21% 0.006 285.885);
+              border: 1px solid oklch(27.4% 0.006 286.033);
+              border-radius: 1rem;
+              padding: 0.5rem;
+              gap: 0.5rem;
+              opacity: 0;
+              scale: 0.9;
+              transform-origin: top right;
+              pointer-events: none;
+              transition: opacity 0.2s ease, scale 0.2s ease;
+              button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+                color: #fff;
+                border-radius: 0.5rem;
+                display: flex;
+                width: 100%;
+                justify-content: center;
+              }
+              button#deleteBtn {
+                color: oklch(57.7% 0.245 27.325);
+              }
+              button#toggleArchiveBtn:hover {
+                background-color: oklch(27.4% 0.006 286.033);
+              }
+              button#deleteBtn:hover {
+                background-color: oklch(28.6% 0.066 53.813 / 0.5);
+              }
+            }
+            .dropdown-content.show {
+              opacity: 1;
+              scale: 1;
+              pointer-events: auto;
+            }
           }
           p {
             font-size: 1rem;
@@ -74,7 +168,23 @@ class NoteItem extends HTMLElement {
         }
       </style>
       <div class="note-item">
-        <h3>${this.#note.title}</h3>
+        <h3>
+          ${this.#note.title}
+          <div class="dropdown">
+            <button type="button" class="dropdown-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-icon lucide-ellipsis">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="19" cy="12" r="1" />
+                <circle cx="5" cy="12" r="1" />
+              </svg>
+            </button>
+            <div class="dropdown-content">
+              <button type="button" id="toggleArchiveBtn">${this.#note.archived ? 'Unarchive' : 'Archive'}</button>
+              <button type="button" id="deleteBtn">Delete</button>
+            </div>
+          </div>
+        </h3>
         <p>${this.#note.body}</p>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
