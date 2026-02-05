@@ -24,8 +24,8 @@ class App {
     this.noteFormComponent.addEventListener('note-submit', async () => {
       const formElement =
         this.noteFormComponent.shadowRoot.querySelector('form')
-      const titleInput = formElement.elements[0]
-      const contentInput = formElement.elements[1]
+      const titleInput = formElement.elements['note-title']
+      const contentInput = formElement.elements['note-content']
 
       const newNote = {
         title: titleInput.value,
