@@ -200,6 +200,59 @@ class NoteForm extends HTMLElement {
       event.preventDefault()
       this.dispatchEvent(new CustomEvent('note-submit', { bubbles: true }))
     })
+    this.setupFormValidation()
+  }
+
+  setupFormValidation() {
+    const formElement = this.shadowRoot.querySelector('form')
+    const titleInput = formElement.elements[0]
+    const contentInput = formElement.elements[1]
+
+    const customValidationTitleHandler = (event) => {
+      const target = event.target
+      target.setCustomValidity('')
+
+      if (target.validity.valueMissing) {
+        target.setCustomValidity('Judul wajib diisi.')
+      }
+    }
+
+    const customValidationContentHandler = (event) => {
+      const target = event.target
+      target.setCustomValidity('')
+
+      if (target.validity.valueMissing) {
+        target.setCustomValidity('Isi catatan tidak boleh kosong.')
+      } else if (target.validity.tooShort) {
+        target.setCustomValidity(
+          `Isi catatan minimal ${target.minLength} karakter.`,
+        )
+      }
+    }
+
+    const showErrorMessage = (event) => {
+      const isValid = event.target.validity.valid
+      const errorMessage = event.target.validationMessage
+
+      const connectedValidationEl =
+        event.target.nextElementSibling.nextElementSibling
+
+      if (connectedValidationEl && errorMessage && !isValid) {
+        connectedValidationEl.innerText = errorMessage
+        connectedValidationEl.style.display = 'block'
+      } else {
+        connectedValidationEl.innerText = ''
+        connectedValidationEl.style.display = 'none'
+      }
+    }
+
+    titleInput.addEventListener('change', customValidationTitleHandler)
+    titleInput.addEventListener('invalid', customValidationTitleHandler)
+    contentInput.addEventListener('change', customValidationContentHandler)
+    contentInput.addEventListener('invalid', customValidationContentHandler)
+
+    titleInput.addEventListener('blur', showErrorMessage)
+    contentInput.addEventListener('blur', showErrorMessage)
   }
 }
 
