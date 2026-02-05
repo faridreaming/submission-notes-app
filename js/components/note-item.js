@@ -60,7 +60,6 @@ class NoteItem extends HTMLElement {
           detail: { id: this.#note.id },
         }),
       )
-      this.closeDropdown()
     })
 
     toggleArchiveBtn.addEventListener('click', () => {
@@ -74,7 +73,6 @@ class NoteItem extends HTMLElement {
           },
         }),
       )
-      this.closeDropdown()
     })
   }
 

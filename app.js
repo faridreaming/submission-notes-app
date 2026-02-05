@@ -48,6 +48,12 @@ class App {
 
     document.addEventListener('note-delete', async (event) => {
       const { id } = event.detail
+
+      const confirmed = confirm('Are you sure you want to delete this note?')
+      if (!confirmed) return
+
+      event.target.closeDropdown()
+
       try {
         const result = await NotesApi.deleteNote(id)
         this.showToast(result.message)
@@ -59,6 +65,13 @@ class App {
 
     document.addEventListener('note-archive-toggle', async (event) => {
       const { id, archived } = event.detail
+
+      const action = archived ? 'unarchive' : 'archive'
+      const confirmed = confirm(`Are you sure you want to ${action} this note?`)
+      if (!confirmed) return
+
+      event.target.closeDropdown()
+
       try {
         let result
         if (archived) {
