@@ -1,0 +1,13 @@
+# Ignore artifacts:
+build/
+dist/
+
+# Ignore node_modules:
+node_modules/
+
+# Ignore logs:
+logs/
+*.log
+
+# Ignore coverage:
+coverage/
