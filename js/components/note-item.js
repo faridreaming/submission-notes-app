@@ -142,6 +142,7 @@ class NoteItem extends HTMLElement {
               pointer-events: none;
               transition: opacity 0.2s ease, scale 0.2s ease;
               button {
+                font-size: 1rem;
                 background: none;
                 border: none;
                 cursor: pointer;
