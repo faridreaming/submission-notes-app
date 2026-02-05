@@ -48,6 +48,11 @@ class App {
   }
 
   async displayNotes() {
+    this.noteListElement.innerHTML = `
+      <div style="display: flex; justify-content: center; padding: 2rem;">
+        <loading-spinner size="2rem" color="oklch(53.2% 0.157 131.589)" border-width="0.275rem"></loading-spinner>
+      </div>
+    `
     try {
       const notes = await NotesApi.getAll()
 
