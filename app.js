@@ -8,6 +8,7 @@ class App {
   constructor() {
     if (App.instance) return App.instance
 
+    this.currentTab = 'active'
     this.initElements()
     this.bindEvents()
     this.displayNotes()
@@ -18,6 +19,7 @@ class App {
   initElements() {
     this.noteListElement = document.querySelector('note-list')
     this.noteFormComponent = document.querySelector('note-form')
+    this.noteTabsComponent = document.querySelector('note-tabs')
   }
 
   bindEvents() {
@@ -97,6 +99,12 @@ class App {
         this.showToast(err.message)
       }
     })
+
+    document.addEventListener('tab-change', (event) => {
+      const { activeTab } = event.detail
+      this.currentTab = activeTab
+      this.displayNotes()
+    })
   }
 
   async displayNotes() {
@@ -106,12 +114,21 @@ class App {
       </div>
     `
     try {
-      const notes = await NotesApi.getAll()
+      let notes
+      if (this.currentTab === 'active') {
+        notes = await NotesApi.getAll()
+      } else {
+        notes = await NotesApi.getArchived()
+      }
 
       if (notes.length === 0) {
         this.noteListElement.innerHTML = ''
+        const message =
+          this.currentTab === 'active'
+            ? 'There are no active notes to display'
+            : 'There are no archived notes to display'
         this.noteListElement.appendChild(
-          this.createAlertMessage('There are no notes to display', 'info'),
+          this.createAlertMessage(message, 'info'),
         )
         return
       }

@@ -18,7 +18,7 @@ class NoteList extends HTMLElement {
           box-sizing: border-box;
         }
         .note-list {
-          margin-block-start: 2rem;
+          margin-block-start: 1rem;
           display: grid;
           gap: 1rem;
           grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))
