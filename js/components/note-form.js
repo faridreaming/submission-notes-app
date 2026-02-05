@@ -120,18 +120,6 @@ class NoteForm extends HTMLElement {
             cursor: not-allowed;
             opacity: 0.6;
           }
-          .loader {
-            width: 1.25rem;
-            height: 1.25rem; 
-            border: 0.225rem solid rgba(255, 255, 255, 0.25);
-            border-top: 0.225rem solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-          }
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
         }
         @media (max-width: 480px) {
           button {
@@ -182,7 +170,7 @@ class NoteForm extends HTMLElement {
         <button ${this.#isSubmitting ? 'disabled' : ''}>
           ${
             this.#isSubmitting
-              ? '<div class="loader"></div>'
+              ? '<loading-spinner size="1.25rem"></loading-spinner>'
               : `
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
