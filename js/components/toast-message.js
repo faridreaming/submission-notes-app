@@ -33,7 +33,8 @@ class ToastMessage extends HTMLElement {
           color: oklch(14.1% 0.005 285.823);
           background-color: oklch(98.5% 0 0);
           position: fixed;
-          right: 1rem;
+          left: 50%;
+          transform: translateX(-50%);
           bottom: -100%;
           transition: all 0.3s ease-in-out;
         }
